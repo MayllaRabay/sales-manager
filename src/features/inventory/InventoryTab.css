@@ -1,0 +1,149 @@
+.inventory-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.inventory-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.25rem;
+}
+
+.inventory-heading p {
+  margin-top: 8px;
+}
+
+.inventory-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.inventory-section {
+  margin-top: 32px;
+}
+
+.inventory-section h3 {
+  margin: 0 0 16px;
+  color: #172033;
+  font-size: 1.05rem;
+}
+
+.inventory-table {
+  table-layout: auto;
+}
+
+.inventory-table th,
+.inventory-table td {
+  white-space: normal;
+}
+
+.stock-balance {
+  color: #15803d !important;
+  font-weight: 700;
+}
+
+.movement-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.form-field label {
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+}
+
+.movement-submit {
+  justify-self: start;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.movement-submit:hover {
+  background: #1d4ed8;
+}
+
+.inventory-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.inventory-empty {
+  margin: 0;
+  padding: 20px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.movement-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.movement-badge.entry {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.movement-badge.exit {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+@media (max-width: 600px) {
+  .inventory-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .movement-form {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 18px;
+  }
+
+  .movement-submit {
+    width: 100%;
+  }
+}

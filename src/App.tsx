@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "./App.css"
 import { CommissionsTab } from "./features/commissions/CommissionsTab"
+import { InventoryTab } from "./features/inventory/InventoryTab"
 
 type Tab = "commissions" | "inventory" | "interest"
 
@@ -63,6 +64,8 @@ function App() {
         <div className="tab-content">
           {activeTab === "commissions" ? (
             <CommissionsTab />
+          ) : activeTab === "inventory" ? (
+            <InventoryTab />
           ) : (
             <>
               <h2>{content.title}</h2>
