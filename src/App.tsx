@@ -1,6 +1,7 @@
 import { useState } from "react"
 import "./App.css"
 import { CommissionsTab } from "./features/commissions/CommissionsTab"
+import { InterestTab } from "./features/interest/InterestTab"
 import { InventoryTab } from "./features/inventory/InventoryTab"
 
 type Tab = "commissions" | "inventory" | "interest"
@@ -11,27 +12,15 @@ const tabs: { id: Tab; label: string }[] = [
   { id: "interest", label: "Juros" }
 ]
 
+const tabComponents = {
+  commissions: CommissionsTab,
+  inventory: InventoryTab,
+  interest: InterestTab
+}
+
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>("commissions")
-
-  const activeTabContent = {
-    commissions: {
-      title: "Cálculo de comissões",
-      description:
-        "Consulte as vendas e calcule automaticamente a comissão de cada vendedor."
-    },
-    inventory: {
-      title: "Controle de estoque",
-      description: "Consulte produtos e registre entradas e saídas de estoque."
-    },
-    interest: {
-      title: "Cálculo de juros",
-      description:
-        "Informe um valor e uma data de vencimento para calcular os juros por atraso."
-    }
-  }
-
-  const content = activeTabContent[activeTab]
+  const ActiveTabComponent = tabComponents[activeTab]
 
   return (
     <main className="app">
@@ -62,16 +51,7 @@ function App() {
         </nav>
 
         <div className="tab-content">
-          {activeTab === "commissions" ? (
-            <CommissionsTab />
-          ) : activeTab === "inventory" ? (
-            <InventoryTab />
-          ) : (
-            <>
-              <h2>{content.title}</h2>
-              <p>{content.description}</p>
-            </>
-          )}
+          <ActiveTabComponent />
         </div>
       </section>
     </main>

@@ -1,0 +1,153 @@
+.interest-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 1.25rem;
+}
+
+.interest-heading p {
+  margin: 8px 0 24px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.interest-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.interest-form .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.interest-form .form-field label {
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.interest-form .form-field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+}
+
+.interest-submit {
+  justify-self: start;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.interest-submit:hover {
+  background: #1d4ed8;
+}
+
+.interest-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.875rem;
+}
+
+.interest-result {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.result-eyebrow {
+  margin: 0 0 20px;
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.result-label {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.result-total {
+  margin: 8px 0 24px;
+  color: #172033;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.result-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.result-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.result-details span {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.result-details strong {
+  color: #172033;
+  overflow-wrap: anywhere;
+}
+
+.result-details .interest-amount {
+  color: #15803d;
+}
+
+.interest-note {
+  margin: 20px 0 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .interest-form {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 18px;
+  }
+
+  .interest-submit {
+    width: 100%;
+  }
+
+  .interest-result {
+    padding: 18px;
+  }
+
+  .result-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
