@@ -1,0 +1,86 @@
+.commissions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.commissions-header h2,
+.sales-list-title {
+  margin: 0;
+  color: #172033;
+  font-size: 1.25rem;
+}
+
+.commissions-header p {
+  margin-top: 8px;
+}
+
+.sales-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.data-table td {
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.commission-value {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.sales-list-title {
+  margin: 32px 0 16px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .commissions-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 12px;
+  }
+}
