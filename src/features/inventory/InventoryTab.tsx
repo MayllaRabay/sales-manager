@@ -12,14 +12,23 @@ type StockMovement = {
   description: string
 }
 
+type MovementFormData = {
+  productCode: number
+  type: MovementType
+  quantity: string
+  description: string
+}
+
 const numberFormatter = new Intl.NumberFormat("pt-BR")
 
 export function InventoryTab() {
   const [movements, setMovements] = useState<StockMovement[]>([])
-  const [productCode, setProductCode] = useState(products[0].code)
-  const [type, setType] = useState<MovementType>("entry")
-  const [quantity, setQuantity] = useState("1")
-  const [description, setDescription] = useState("")
+  const [formData, setFormData] = useState<MovementFormData>({
+    productCode: products[0].code,
+    type: "entry",
+    quantity: "1",
+    description: ""
+  })
   const [error, setError] = useState("")
 
   const stockByProduct = products.map((product) => {
@@ -40,9 +49,10 @@ export function InventoryTab() {
     event.preventDefault()
     setError("")
 
-    const parsedQuantity = Number(quantity)
+    const parsedQuantity = Number(formData.quantity)
+
     const selectedProduct = stockByProduct.find(
-      (product) => product.code === productCode
+      (product) => product.code === formData.productCode
     )
 
     if (
@@ -54,27 +64,34 @@ export function InventoryTab() {
       return
     }
 
-    if (!description.trim()) {
+    if (!formData.description.trim()) {
       setError("Informe uma descrição para a movimentação.")
       return
     }
 
-    if (type === "exit" && parsedQuantity > selectedProduct.currentStock) {
+    if (
+      formData.type === "exit" &&
+      parsedQuantity > selectedProduct.currentStock
+    ) {
       setError("A saída não pode ser maior que o estoque disponível.")
       return
     }
 
     const movement: StockMovement = {
       id: `MOV-${String(movements.length + 1).padStart(3, "0")}`,
-      productCode,
-      type,
+      productCode: formData.productCode,
+      type: formData.type,
       quantity: parsedQuantity,
-      description: description.trim()
+      description: formData.description.trim()
     }
 
     setMovements((current) => [...current, movement])
-    setQuantity("1")
-    setDescription("")
+
+    setFormData((current) => ({
+      ...current,
+      quantity: "1",
+      description: ""
+    }))
   }
 
   return (
@@ -124,8 +141,13 @@ export function InventoryTab() {
             <label htmlFor="product">Produto</label>
             <select
               id="product"
-              value={productCode}
-              onChange={(event) => setProductCode(Number(event.target.value))}
+              value={formData.productCode}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  productCode: Number(event.target.value)
+                }))
+              }
             >
               {products.map((product) => (
                 <option key={product.code} value={product.code}>
@@ -139,8 +161,13 @@ export function InventoryTab() {
             <label htmlFor="movement-type">Tipo de movimentação</label>
             <select
               id="movement-type"
-              value={type}
-              onChange={(event) => setType(event.target.value as MovementType)}
+              value={formData.type}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  type: event.target.value as MovementType
+                }))
+              }
             >
               <option value="entry">Entrada</option>
               <option value="exit">Saída</option>
@@ -154,8 +181,13 @@ export function InventoryTab() {
               type="number"
               min="1"
               step="1"
-              value={quantity}
-              onChange={(event) => setQuantity(event.target.value)}
+              value={formData.quantity}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  quantity: event.target.value
+                }))
+              }
             />
           </div>
 
@@ -164,8 +196,13 @@ export function InventoryTab() {
             <input
               id="description"
               type="text"
-              value={description}
-              onChange={(event) => setDescription(event.target.value)}
+              value={formData.description}
+              onChange={(event) =>
+                setFormData((current) => ({
+                  ...current,
+                  description: event.target.value
+                }))
+              }
               placeholder="Ex.: Reposição de mercadoria"
             />
           </div>
