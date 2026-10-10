@@ -1,6 +1,18 @@
+import { useState } from "react"
 import { sales } from "../../data/sales"
 import "./CommissionsTab.css"
 import { calculateSalesCommissions } from "./commissionsUtils"
+
+type SortColumn = "seller" | "amount" | "commissionRate" | "commission"
+
+type SortDirection = "asc" | "desc"
+
+const sortableColumns: { key: SortColumn; label: string }[] = [
+  { key: "seller", label: "Vendedor" },
+  { key: "amount", label: "Valor da venda" },
+  { key: "commissionRate", label: "Taxa" },
+  { key: "commission", label: "Comissão" }
+]
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -14,6 +26,37 @@ const percentageFormatter = new Intl.NumberFormat("pt-BR", {
 
 export function CommissionsTab() {
   const salesWithCommissions = calculateSalesCommissions(sales)
+  const [sortColumn, setSortColumn] = useState<SortColumn | null>(null)
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc")
+
+  function handleSort(column: SortColumn) {
+    if (sortColumn === column) {
+      setSortDirection((current) => (current === "asc" ? "desc" : "asc"))
+      return
+    }
+
+    setSortColumn(column)
+    setSortDirection("asc")
+  }
+
+  const sortedSales = [...salesWithCommissions]
+
+  if (sortColumn) {
+    sortedSales.sort((a, b) => {
+      const firstValue = a[sortColumn]
+      const secondValue = b[sortColumn]
+
+      let comparison: number
+
+      if (typeof firstValue === "string") {
+        comparison = firstValue.localeCompare(String(secondValue), "pt-BR")
+      } else {
+        comparison = firstValue - Number(secondValue)
+      }
+
+      return sortDirection === "asc" ? comparison : -comparison
+    })
+  }
 
   const sellerTotals = salesWithCommissions.reduce<
     Record<string, { sales: number; commission: number }>
@@ -38,8 +81,8 @@ export function CommissionsTab() {
         <span className="sales-count">{sales.length} vendas</span>
       </div>
 
-      <div className="table-wrapper">
-        <table className="data-table">
+      <div className="table-wrapper summary-table-wrapper">
+        <table className="data-table summary-table">
           <thead>
             <tr>
               <th>Vendedor</th>
@@ -63,18 +106,33 @@ export function CommissionsTab() {
 
       <h3 className="sales-list-title">Detalhamento das vendas</h3>
 
-      <div className="table-wrapper">
-        <table className="data-table">
+      <div className="table-wrapper details-table-wrapper">
+        <table className="data-table details-table">
           <thead>
             <tr>
-              <th>Vendedor</th>
-              <th>Valor da venda</th>
-              <th>Taxa</th>
-              <th>Comissão</th>
+              {sortableColumns.map(({ key, label }) => (
+                <th key={key} scope="col">
+                  <button
+                    type="button"
+                    className="sort-button"
+                    onClick={() => handleSort(key)}
+                    aria-label={`Ordenar por ${label}`}
+                  >
+                    {label}
+                    <span className="sort-indicator" aria-hidden="true">
+                      {sortColumn === key
+                        ? sortDirection === "asc"
+                          ? "↑"
+                          : "↓"
+                        : ""}
+                    </span>
+                  </button>
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            {salesWithCommissions.map((sale) => (
+            {sortedSales.map((sale) => (
               <tr key={sale.id}>
                 <td>{sale.seller}</td>
                 <td>{currencyFormatter.format(sale.amount)}</td>

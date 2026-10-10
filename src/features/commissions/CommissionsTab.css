@@ -73,6 +73,82 @@
   font-size: 1.1rem;
 }
 
+.summary-table-wrapper {
+  margin: 0 auto;
+  box-shadow: 0 4px 14px rgb(15 23 42 / 5%);
+}
+
+.summary-table th {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.summary-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.summary-table tbody tr:hover {
+  background: #f8faff;
+}
+
+.summary-table .commission-value {
+  color: #4338ca;
+  font-weight: 700;
+}
+
+.details-table-wrapper {
+  max-height: 400px;
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.details-table {
+  min-width: 600px;
+}
+
+.details-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f1f5f9;
+  box-shadow: 0 1px 0 #e2e8f0;
+}
+
+.details-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.sort-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sort-button:hover {
+  color: #4338ca;
+}
+
+.sort-button:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.sort-indicator {
+  display: inline-block;
+  width: 1em;
+  flex-shrink: 0;
+  text-align: center;
+}
+
 @media (max-width: 600px) {
   .commissions-header {
     align-items: flex-start;
